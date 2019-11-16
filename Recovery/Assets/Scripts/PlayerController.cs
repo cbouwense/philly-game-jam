@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerController : PhysicsObject
 {
-
     private int speed = 5;
     private int jumpVelocity = 10;
     private bool moveable = true;
+    public Animator animator;
 
     protected override void ComputeVelocity()
     {
@@ -18,13 +18,14 @@ public class PlayerController : PhysicsObject
 
             if (velocityX > 0)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(-1, 1, 1);
             }
             else if (velocityX < 0)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(1, 1, 1);
             }
 
+            animator.SetBool("moving", velocityX != 0);
             velocityX *= speed;
 
         }

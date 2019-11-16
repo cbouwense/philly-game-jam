@@ -8,7 +8,7 @@ public class PhysicsObject : MonoBehaviour
     [SerializeField] protected float minGroundNormalY = 0.65f;
     [SerializeField] protected float gravityModifier = 2f;
 
-    public bool grounded, wasGrounded, jump;
+    public bool grounded, wasGrounded;
     protected Vector2 groundNormal;
     public float velocityX, velocityY;
     public Rigidbody2D rb2d;
@@ -16,7 +16,7 @@ public class PhysicsObject : MonoBehaviour
     protected ContactFilter2D contactFilter;
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
-    protected Animator anim;
+    public Animator anim;
     //protected StatsController stats;
     //protected PlayerController pc;
     //protected SoundManager sm;
@@ -36,7 +36,6 @@ public class PhysicsObject : MonoBehaviour
     protected virtual void Update()
     {
         ComputeVelocity();
-        jump = Input.GetButtonDown("Jump");
     }
     protected virtual void ComputeVelocity()
     {
@@ -69,15 +68,13 @@ public class PhysicsObject : MonoBehaviour
         move = Vector2.up * deltaPosition.y;
         Movement(move, 'y');
 
-        /*
-        if (anim && tag == "Birb")
+        if (anim && tag == "Player")
         {
             // Animator logic
-            anim.SetFloat("velX", velocity.x);
-            anim.SetFloat("velY", velocity.y);
+            anim.SetBool("moving", velocity.x != 0);
             anim.SetBool("grounded", grounded);
         }
-
+        /*
         if (grounded && velocity.x != 0)
         {
             sm.PlaySound("run_sound");
