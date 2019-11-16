@@ -35,13 +35,12 @@ public class PhysicsObject : MonoBehaviour
     }
     protected virtual void Update()
     {
-        Debug.Log("in physicsobject update");
         ComputeVelocity();
         jump = Input.GetButtonDown("Jump");
     }
     protected virtual void ComputeVelocity()
     {
-        Debug.Log("in physicsobject computeVelocity");
+        
     }
 
     protected virtual void FixedUpdate()

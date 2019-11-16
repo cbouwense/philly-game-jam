@@ -11,7 +11,6 @@ public class PlayerController : PhysicsObject
 
     protected override void ComputeVelocity()
     {
-        Debug.Log("in ComputeVelocity");
         // Horizontal Input
         if (moveable)
         {
