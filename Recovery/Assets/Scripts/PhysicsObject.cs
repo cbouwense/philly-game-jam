@@ -2,63 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicsObjects : MonoBehaviour
+public class PhysicsObject : MonoBehaviour
 {
+
     [SerializeField] protected float minGroundNormalY = 0.65f;
     [SerializeField] protected float gravityModifier = 2f;
 
     public bool grounded, wasGrounded, jump;
     protected Vector2 groundNormal;
     public float velocityX, velocityY;
-    protected Rigidbody2D rb2d;
+    public Rigidbody2D rb2d;
     public Vector2 velocity;
     protected ContactFilter2D contactFilter;
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
-    //protected Animator anim;
+    protected Animator anim;
     //protected StatsController stats;
     //protected PlayerController pc;
     //protected SoundManager sm;
-    //private AudioSource audioSource;
+    private AudioSource audioSource;
 
     protected const float minMoveDistance = 0.001f;
     protected const float shellRadius = 0.01f;
 
-    protected virtual void Start()
+    void Start()
     {
-
         // Ignore any contacts involving trigger colliders
         contactFilter.useTriggers = false;
 
         // Use layer that object is on
         contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
-
-        rb2d = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
-        //stats = GetComponent<StatsController>();
-        //pc = GetComponent<PlayerController>();
-        //sm = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        //audioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
     }
-
     protected virtual void Update()
     {
+        Debug.Log("in physicsobject update");
         ComputeVelocity();
         jump = Input.GetButtonDown("Jump");
     }
-
     protected virtual void ComputeVelocity()
     {
-
+        Debug.Log("in physicsobject computeVelocity");
     }
 
     protected virtual void FixedUpdate()
     {
         //if (anim && tag == "Birb")
-        //    resetAnim();
+        //   resetAnim();
 
         // Update y
-        //velocity.y += Physics2D.gravity.y * (stats.getCurrentGrav()) * Time.deltaTime;
         velocity.y += Physics2D.gravity.y * Time.deltaTime;
 
         // Update x
@@ -123,7 +114,7 @@ public class PhysicsObjects : MonoBehaviour
 
                     // Set grounded equal to true
                     grounded = true;
-     
+
                     // Become moveable again
                     //stats.setMoveable(true);
 
@@ -154,15 +145,4 @@ public class PhysicsObjects : MonoBehaviour
             rb2d.position += move.normalized * distance;
 
     }
-
-    /*
-    public void resetAnim()
-    {
-        string[] states = { "grounded", "layEgg" };
-        for (int i = 0; i < states.Length; i++)
-        {
-            anim.SetBool(states[i], false);
-        }
-    }
-    */
 }

@@ -321,6 +321,8 @@ GameObject:
   - component: {fileID: 1004450575}
   - component: {fileID: 1004450574}
   - component: {fileID: 1004450573}
+  - component: {fileID: 1004450578}
+  - component: {fileID: 1004450579}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -435,3 +437,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1004450578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004450572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cf2f22d75f9434d986555795fdb44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGroundNormalY: 0.65
+  gravityModifier: 2
+  grounded: 0
+  wasGrounded: 0
+  jump: 0
+  velocityX: 0
+  velocityY: 0
+  rb2d: {fileID: 1004450573}
+  velocity: {x: 0, y: 0}
+--- !u!114 &1004450579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004450572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebcf01528cffd44eb5e62be60a7c6ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGroundNormalY: 0.65
+  gravityModifier: 2
+  grounded: 0
+  wasGrounded: 0
+  jump: 0
+  velocityX: 0
+  velocityY: 0
+  rb2d: {fileID: 1004450573}
+  velocity: {x: 0, y: 0}
