@@ -13,5 +13,10 @@ public class ResetPlayer : MonoBehaviour
             Debug.Log("Colliding with player!");
             rc.restartLevel();
         }
+
+        if (col.tag == "Obstacle")
+        {
+            Destroy(col.gameObject);
+        }
     }
 }

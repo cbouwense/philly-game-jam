@@ -5,17 +5,42 @@ using UnityEngine;
 public class SpawnObstacles : MonoBehaviour
 {
     private float group1spawnTimer = 0.0f;
-    
-    public GameObject ob1;
+    private float group2spawnTimer = 0.0f;
+    private float group3spawnTimer = 0.0f;
+    private int currentTimer = 1;
+    private int cooldown = 2;
+
+    public GameObject ob1, ob2, ob3;
     // Update is called once per frame
     void Update()
     {
-        group1spawnTimer += Time.deltaTime;
+        if (currentTimer == 1)
+            group1spawnTimer += Time.deltaTime;
+        if (currentTimer == 2)
+            group2spawnTimer += Time.deltaTime;
+        if (currentTimer == 3)
+            group3spawnTimer += Time.deltaTime;
 
-        if (group1spawnTimer > 5)
+        if (group1spawnTimer > cooldown)
         {
             group1spawnTimer = 0.0f;
-            SpawnObstacle(1, new Vector2(-10, -0.45f));
+            currentTimer = 2;
+            SpawnObstacle(2, new Vector2(-10, -0.45f));
+        }
+        if (group2spawnTimer > cooldown)
+        {
+            group2spawnTimer = 0.0f;
+            currentTimer = 3;
+            SpawnObstacle(1, new Vector2(-10, -0.9f));
+            SpawnObstacle(1, new Vector2(-10, 2f));
+        }
+        if (group3spawnTimer > cooldown)
+        {
+            group3spawnTimer = 0.0f;
+            currentTimer = 1;
+            SpawnObstacle(1, new Vector2(-9, -0.9f));
+            SpawnObstacle(2, new Vector2(-11, -0.45f));
+            SpawnObstacle(3, new Vector2(-13, 0.1f));
         }
     }
 
@@ -24,6 +49,14 @@ public class SpawnObstacles : MonoBehaviour
         if (num == 1)
         {
             Instantiate(ob1, pos, new Quaternion());
+        }
+        else if (num == 2)
+        {
+            Instantiate(ob2, pos, new Quaternion());
+        }
+        else if (num == 3)
+        {
+            Instantiate(ob3, pos, new Quaternion());
         }
     }
 }
