@@ -26,7 +26,7 @@ public class PlayerController : PhysicsObject
                 transform.localScale = new Vector3(-1, 1, 1);
             }
 
-            //velocityX *= speed;
+            velocityX *= speed;
 
         }
 
