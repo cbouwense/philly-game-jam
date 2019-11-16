@@ -23,21 +23,40 @@ public class SpawnObstacles : MonoBehaviour
 
         if (group1spawnTimer > cooldown)
         {
+            cooldown = (int)Random.Range(0, 3);
             group1spawnTimer = 0.0f;
             currentTimer = 2;
-            SpawnObstacle(2, new Vector2(-10, -0.45f));
+            SpawnGroup(1);
         }
         if (group2spawnTimer > cooldown)
         {
+            cooldown = (int)Random.Range(0, 3);
             group2spawnTimer = 0.0f;
             currentTimer = 3;
-            SpawnObstacle(1, new Vector2(-10, -0.9f));
-            SpawnObstacle(1, new Vector2(-10, 2f));
+            SpawnGroup(2);
         }
         if (group3spawnTimer > cooldown)
         {
+            cooldown = (int)Random.Range(0, 3);
             group3spawnTimer = 0.0f;
             currentTimer = 1;
+            SpawnGroup(3);
+        }
+    }
+
+    void SpawnGroup(int group)
+    {
+        if (group == 1)
+        {
+            SpawnObstacle(2, new Vector2(-10, -0.45f));
+        }
+        else if (group == 2)
+        {
+            SpawnObstacle(1, new Vector2(-10, -0.9f));
+            SpawnObstacle(1, new Vector2(-10, 2f));
+        }
+        else if (group == 3)
+        {
             SpawnObstacle(1, new Vector2(-9, -0.9f));
             SpawnObstacle(2, new Vector2(-11, -0.45f));
             SpawnObstacle(3, new Vector2(-13, 0.1f));

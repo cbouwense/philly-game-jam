@@ -5,7 +5,12 @@ using UnityEngine;
 public class MoveObstacle : MonoBehaviour
 {
     public Rigidbody2D rb2d;
-    public int speed;
+    private float speed;
+
+    private void Start()
+    {
+        speed = Random.Range(3.0f, 7.0f);
+    }
 
     void FixedUpdate()
     {
