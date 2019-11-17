@@ -41,6 +41,10 @@ public class RoomController : MonoBehaviour
 	
 	void Update () {
 
+        if (Input.GetKey(KeyCode.Escape)){
+            SceneManager.LoadScene(0);
+        }
+
         // If we're not in the main menu
         if (SceneManager.GetActiveScene().buildIndex > 0)
         {
@@ -56,12 +60,12 @@ public class RoomController : MonoBehaviour
                 playerStats.setEggMax(eggCount);
             */
 
-            // Restart Input
-            if (Input.GetButtonDown("Restart"))
-            {
-                Debug.Log("Restarting level");
-                restartLevel();
-            }
+            // // Restart Input
+            // if (Input.GetButtonDown("Restart"))
+            // {
+            //     Debug.Log("Restarting level");
+            //     restartLevel();
+            // }
            
         }
 

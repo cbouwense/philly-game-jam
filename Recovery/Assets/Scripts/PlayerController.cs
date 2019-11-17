@@ -9,8 +9,9 @@ public class PlayerController : PhysicsObject
     private bool moveable = true;
     public Animator animator;
     public SoundManager sm;
+    public FlashBang fb;
     public float recoverTimer = 21.0f;
-    public float recoverCooldown = 20.0f;
+    public float recoverCooldown = 15.0f;
 
     protected override void ComputeVelocity()
     {
@@ -59,6 +60,7 @@ public class PlayerController : PhysicsObject
             GameObject[] obs = GameObject.FindGameObjectsWithTag("Obstacle");
             foreach (GameObject ob in obs)
                 GameObject.Destroy(ob);
+            fb.MineHit();
 
         }
     }
