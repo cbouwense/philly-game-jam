@@ -8,7 +8,7 @@ public class PlayerController : PhysicsObject
     private int jumpVelocity = 10;
     private bool moveable = true;
     public Animator animator;
-
+    public SoundManager sm;
     public float recoverTimer = 21.0f;
     public float recoverCooldown = 20.0f;
 
@@ -22,10 +22,18 @@ public class PlayerController : PhysicsObject
             if (velocityX > 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
+                if (grounded)
+                {
+                    sm.PlaySound("run_sound");
+                }
             }
             else if (velocityX < 0)
             {
                 transform.localScale = new Vector3(1, 1, 1);
+                if (grounded)
+                {
+                    sm.PlaySound("run_sound");
+                }
             }
 
             animator.SetBool("moving", velocityX != 0);
@@ -40,7 +48,7 @@ public class PlayerController : PhysicsObject
             if (grounded)
             {
                 velocity.y = jumpVelocity;
-                //sm.PlaySound("jump_sound");
+                sm.PlaySound("jump_sound");
             }
         }
 
