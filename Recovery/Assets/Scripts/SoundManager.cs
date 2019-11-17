@@ -4,22 +4,45 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static AudioClip runSound, jumpSound, eggSound, nextLevelSound, pickupSound, dieSound;
+    public static AudioClip runSound, jumpSound, eggSound, nextLevelSound, pickupSound, dieSound, recoverSound, landSound;
     static AudioSource audioSrc;
-    private float walkTimer, jumpTimer, dieTimer, nextLevelTimer, pickupTimer;
+    private float walkTimer, jumpTimer, nextLevelTimer, pickupTimer;
+
+    private static SoundManager instance = null;
+    public static SoundManager Instance
+    {
+        get { return instance; }
+    }
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+
+        DontDestroyOnLoad(this.gameObject);
+        transform.parent = null;
+    }
 
     void Start()
     {
 
         runSound = Resources.Load<AudioClip>("goat_run_cycle");
         jumpSound = Resources.Load<AudioClip>("goat_jump");
-        dieSound = Resources.Load<AudioClip>("goat_fall_with_splat");
+        landSound = Resources.Load<AudioClip>("goat_land_1");
+        dieSound = Resources.Load<AudioClip>("goat_fall_newfx1");
+        recoverSound = Resources.Load<AudioClip>("goat_belt_2");
 
         audioSrc = gameObject.GetComponent<AudioSource>();
 
         walkTimer = 0.0f;
         jumpTimer = 0.0f;
-
     }
 
     void Update()
@@ -28,8 +51,6 @@ public class SoundManager : MonoBehaviour
             walkTimer -= Time.deltaTime;
         if (jumpTimer > 0)
             jumpTimer -= Time.deltaTime;
-        if (dieTimer > 0)
-            dieTimer -= Time.deltaTime;
     }
 
     public void PlaySound(string clip)
@@ -57,11 +78,15 @@ public class SoundManager : MonoBehaviour
 
             case "die_sound":
                 Debug.Log("die sound!");
-                if (dieTimer <= 0)
-                {
-                    audioSrc.PlayOneShot(dieSound);
-                    dieTimer = 0.1f;
-                }
+                audioSrc.PlayOneShot(dieSound);
+                break;
+            case "recover_sound":
+                Debug.Log("recover sound!");
+                audioSrc.PlayOneShot(recoverSound);
+                break;
+            case "land_sound":
+                Debug.Log("land sound!");
+                audioSrc.PlayOneShot(landSound);
                 break;
         }
     }

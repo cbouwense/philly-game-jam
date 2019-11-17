@@ -63,6 +63,7 @@ public class PlayerController : PhysicsObject
                 GameObject.Destroy(ob);
             fb.MineHit();
             sb.TriggerShake();
+            sm.PlaySound("recover_sound");
 
         }
     }
