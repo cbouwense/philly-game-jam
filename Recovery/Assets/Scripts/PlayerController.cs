@@ -10,6 +10,7 @@ public class PlayerController : PhysicsObject
     public Animator animator;
     public SoundManager sm;
     public FlashBang fb;
+    public ShakeBehavior sb;
     public float recoverTimer = 21.0f;
     public float recoverCooldown = 15.0f;
 
@@ -61,6 +62,7 @@ public class PlayerController : PhysicsObject
             foreach (GameObject ob in obs)
                 GameObject.Destroy(ob);
             fb.MineHit();
+            sb.TriggerShake();
 
         }
     }
