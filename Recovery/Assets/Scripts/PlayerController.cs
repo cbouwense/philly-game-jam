@@ -9,6 +9,9 @@ public class PlayerController : PhysicsObject
     private bool moveable = true;
     public Animator animator;
 
+    public float recoverTimer = 21.0f;
+    public float recoverCooldown = 20.0f;
+
     protected override void ComputeVelocity()
     {
         // Horizontal Input
@@ -40,10 +43,24 @@ public class PlayerController : PhysicsObject
                 //sm.PlaySound("jump_sound");
             }
         }
+
+        // Recover ("panic" button)
+        if (Input.GetButtonDown("Recover") && recoverTimer > recoverCooldown)
+        {
+            recoverTimer = 0;
+            GameObject[] obs = GameObject.FindGameObjectsWithTag("Obstacle");
+            foreach (GameObject ob in obs)
+                GameObject.Destroy(ob);
+
+        }
     }
 
     protected override void Update()
     {
         base.Update();
+        if (recoverTimer <= recoverCooldown)
+        {
+            recoverTimer += Time.deltaTime;
+        }
     }
 }
