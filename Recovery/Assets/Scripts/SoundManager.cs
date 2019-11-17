@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static AudioClip runSound, jumpSound, eggSound, nextLevelSound, pickupSound;
+    public static AudioClip runSound, jumpSound, eggSound, nextLevelSound, pickupSound, dieSound;
     static AudioSource audioSrc;
-    private float walkTimer, jumpTimer, eggTimer, nextLevelTimer, pickupTimer;
+    private float walkTimer, jumpTimer, dieTimer, nextLevelTimer, pickupTimer;
 
     void Start()
     {
 
         runSound = Resources.Load<AudioClip>("goat_run_cycle");
         jumpSound = Resources.Load<AudioClip>("goat_jump");
+        dieSound = Resources.Load<AudioClip>("goat_fall_with_splat");
 
         audioSrc = gameObject.GetComponent<AudioSource>();
 
@@ -27,6 +28,8 @@ public class SoundManager : MonoBehaviour
             walkTimer -= Time.deltaTime;
         if (jumpTimer > 0)
             jumpTimer -= Time.deltaTime;
+        if (dieTimer > 0)
+            dieTimer -= Time.deltaTime;
     }
 
     public void PlaySound(string clip)
@@ -49,6 +52,15 @@ public class SoundManager : MonoBehaviour
                 {
                     audioSrc.PlayOneShot(jumpSound);
                     jumpTimer = 0.1f;
+                }
+                break;
+
+            case "die_sound":
+                Debug.Log("die sound!");
+                if (dieTimer <= 0)
+                {
+                    audioSrc.PlayOneShot(dieSound);
+                    dieTimer = 0.1f;
                 }
                 break;
         }
