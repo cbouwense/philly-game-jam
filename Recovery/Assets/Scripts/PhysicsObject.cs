@@ -6,7 +6,7 @@ public class PhysicsObject : MonoBehaviour
 {
 
     [SerializeField] protected float minGroundNormalY = 0.65f;
-    [SerializeField] protected float gravityModifier = 2f;
+    [SerializeField] protected float gravityModifier = 50f;
 
     public bool grounded, wasGrounded;
     protected Vector2 groundNormal;
@@ -48,7 +48,7 @@ public class PhysicsObject : MonoBehaviour
         //   resetAnim();
 
         // Update y
-        velocity.y += Physics2D.gravity.y * Time.deltaTime;
+        velocity.y += Physics2D.gravity.y * Time.deltaTime * gravityModifier;
 
         // Update x
         velocity.x = velocityX;
