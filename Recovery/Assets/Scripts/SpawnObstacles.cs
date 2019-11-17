@@ -8,12 +8,14 @@ public class SpawnObstacles : MonoBehaviour
     private float group2spawnTimer = 0.0f;
     private float group3spawnTimer = 0.0f;
     private int currentTimer = 1;
-    private int cooldown = 2;
+    private float cooldown = 2;
+    private float cooldownModifier = 0;
 
     public GameObject ob1, ob2, ob3;
     // Update is called once per frame
     void Update()
     {
+        cooldownModifier = Time.deltaTime * 0.01f;
         if (currentTimer == 1)
             group1spawnTimer += Time.deltaTime;
         if (currentTimer == 2)
@@ -23,21 +25,21 @@ public class SpawnObstacles : MonoBehaviour
 
         if (group1spawnTimer > cooldown)
         {
-            cooldown = (int)Random.Range(0, 3);
+            cooldown = Random.Range(0, 3) - cooldownModifier;
             group1spawnTimer = 0.0f;
             currentTimer = 2;
             SpawnGroup(1);
         }
         if (group2spawnTimer > cooldown)
         {
-            cooldown = (int)Random.Range(0, 3);
+            cooldown = Random.Range(0, 3) - cooldownModifier;
             group2spawnTimer = 0.0f;
             currentTimer = 3;
             SpawnGroup(2);
         }
         if (group3spawnTimer > cooldown)
         {
-            cooldown = (int)Random.Range(0, 3);
+            cooldown = Random.Range(0, 3) - cooldownModifier;
             group3spawnTimer = 0.0f;
             currentTimer = 1;
             SpawnGroup(3);
