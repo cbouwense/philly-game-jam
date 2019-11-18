@@ -4,20 +4,46 @@ using UnityEngine;
 
 public class SpawnObstacles : MonoBehaviour
 {
+    private float globalspawnTimer = 0.0f;
+    private float globalspawnCooldown = 5.0f;
+
     private float group1spawnTimer = 0.0f;
     private float group2spawnTimer = 0.0f;
     private float group3spawnTimer = 0.0f;
     private int currentTimer = 1;
     private float cooldown = 2;
     private float cooldownModifier = 0;
+    private bool isSpawning = false;
+    private int spawnCooldown = 2;
 
     public GameObject ob1, ob2, ob3;
     // Update is called once per frame
     void Update()
     {
-        if (cooldownModifier < 3)
+
+        globalspawnTimer += Time.deltaTime;
+
+        if (!isSpawning && globalspawnTimer > spawnCooldown)
         {
-            cooldownModifier += 0.001f;
+            globalspawnTimer = 0.0f;
+            isSpawning = true;
+            Debug.Log("setting is spawning to true");
+        }
+
+        if (isSpawning && globalspawnTimer > globalspawnCooldown)
+        {
+            globalspawnTimer = 0.0f;
+            isSpawning = false;
+            Debug.Log("setting is spawning to false");
+        }
+
+        if (cooldownModifier < 2)
+        {
+            cooldownModifier += 0.01f;
+        }
+        else
+        {
+            cooldownModifier = 0;
         }
         if (currentTimer == 1)
             group1spawnTimer += Time.deltaTime;
@@ -26,23 +52,23 @@ public class SpawnObstacles : MonoBehaviour
         if (currentTimer == 3)
             group3spawnTimer += Time.deltaTime;
 
-        if (group1spawnTimer > cooldown)
+        if (group1spawnTimer > cooldown && isSpawning)
         {
-            cooldown = Random.Range(0, 3) - cooldownModifier + 0.5f;
+            cooldown = Random.Range(0, 3) + 0.5f - cooldownModifier;
             group1spawnTimer = 0.0f;
             currentTimer = 2;
             SpawnGroup(1);
         }
-        if (group2spawnTimer > cooldown)
+        if (group2spawnTimer > cooldown && isSpawning)
         {
-            cooldown = Random.Range(0, 3) - cooldownModifier + 0.5f;
+            cooldown = Random.Range(0, 3) + 0.5f - cooldownModifier;
             group2spawnTimer = 0.0f;
             currentTimer = 3;
             SpawnGroup(2);
         }
-        if (group3spawnTimer > cooldown)
+        if (group3spawnTimer > cooldown && isSpawning)
         {
-            cooldown = Random.Range(0, 3) - cooldownModifier + 0.5f;
+            cooldown = Random.Range(0, 3) + 0.5f - cooldownModifier;
             group3spawnTimer = 0.0f;
             currentTimer = 1;
             SpawnGroup(3);
@@ -58,7 +84,7 @@ public class SpawnObstacles : MonoBehaviour
         else if (group == 2)
         {
             SpawnObstacle(1, new Vector2(-10, -0.9f));
-            SpawnObstacle(1, new Vector2(-10, 2f));
+            SpawnObstacle(1, new Vector2(-10, 2.22f));
         }
         else if (group == 3)
         {

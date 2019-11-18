@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : PhysicsObject
 {
     private int speed = 5;
-    private int jumpVelocity = 10;
+    private int jumpVelocity = 16;
     private bool moveable = true;
     public Animator animator;
     public SoundManager sm;
@@ -63,6 +63,7 @@ public class PlayerController : PhysicsObject
                 GameObject.Destroy(ob);
             fb.MineHit();
             sb.TriggerShake();
+            sm.PlaySound("recover_sound");
 
         }
     }
